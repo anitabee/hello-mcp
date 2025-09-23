@@ -4,7 +4,6 @@ import (
 	"context"
 	"log"
 
-	"github.com/anitabee/hello-mcp/server/weather/alerts"
 	"github.com/anitabee/hello-mcp/server/weather/forecast"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -14,7 +13,7 @@ func RegisterMcpTools() {
 	mcp.AddTool(server, &mcp.Tool{
 		Name:        "get_alerts",
 		Description: "Get the current weather for a given location",
-	}, alerts.GetAlerts)
+	}, forecast.GetAlerts)
 
 	mcp.AddTool(server, &mcp.Tool{
 		Name:        "get_forecast",

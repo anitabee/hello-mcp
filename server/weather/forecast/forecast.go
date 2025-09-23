@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"strings"
 
-	request "github.com/anitabee/hello-mcp/server/weather/request"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
@@ -21,9 +20,9 @@ type ForecastOutput struct {
 
 func GetForecast(ctx context.Context, req *mcp.CallToolRequest, input ForecastInput) (*mcp.CallToolResult, ForecastOutput, error) {
 
-	url := fmt.Sprintf("%s/points/%s,%s", request.NwsApiBase, input.Latitude, input.Longitude)
+	url := fmt.Sprintf("%s/points/%s,%s", NwsApiBase, input.Latitude, input.Longitude)
 
-	pointsData, err := request.MakeNewRequest(url)
+	pointsData, err := MakeNewRequest(url)
 	if err != nil || pointsData == nil {
 		e := fmt.Errorf("Something went wrong with making pointsData request: %v", err)
 		return nil, ForecastOutput{}, e
@@ -41,7 +40,7 @@ func GetForecast(ctx context.Context, req *mcp.CallToolRequest, input ForecastIn
 		return nil, ForecastOutput{}, e
 	}
 
-	forecastData, err := request.MakeNewRequest(dataWp.Properties.Forecast)
+	forecastData, err := MakeNewRequest(dataWp.Properties.Forecast)
 	if err != nil || forecastData == nil {
 		e := fmt.Errorf("Something went wrong with making forecastData request: %v", err)
 		return nil, ForecastOutput{}, e

@@ -1,4 +1,4 @@
-package request
+package forecast
 
 import (
 	"io"
@@ -6,10 +6,7 @@ import (
 	"time"
 )
 
-const (
-	NwsApiBase = "https://api.weather.gov"
-	UserAgent  = "weather-app/1.0"
-)
+const NwsApiBase = "https://api.weather.gov"
 
 func MakeNewRequest(url string) ([]byte, error) {
 	client := &http.Client{

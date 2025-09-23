@@ -24,3 +24,19 @@ type WeatherForecastPeriod struct {
 	WindDirection    string `json:"windDirection"`
 	DetailedForecast string `json:"detailedForecast"`
 }
+
+type WeatherAlertResponse struct {
+	Features []WeatherAlertResponseFeature `json:"features"`
+}
+
+type WeatherAlertResponseFeature struct {
+	Properties WeatherAlertResponseProperties `json:"properties"`
+}
+
+type WeatherAlertResponseProperties struct {
+	AreaDesc    string `json:"areaDesc"`
+	Severity    string `json:"severity"`
+	Event       string `json:"event"`
+	Description string `json:"description"`
+	Instruction string `json:"instruction"`
+}

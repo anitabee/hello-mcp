@@ -1,4 +1,4 @@
-package alerts
+package forecast
 
 import (
 	"fmt"

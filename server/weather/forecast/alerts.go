@@ -1,4 +1,4 @@
-package alerts
+package forecast
 
 import (
 	"context"
@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"strings"
 
-	request "github.com/anitabee/hello-mcp/server/weather/request"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
@@ -19,9 +18,9 @@ type Output struct {
 }
 
 func GetAlerts(ctx context.Context, req *mcp.CallToolRequest, input Input) (*mcp.CallToolResult, Output, error) {
-	url := fmt.Sprintf("%s/alerts/active/area/%s", request.NwsApiBase, input.State)
+	url := fmt.Sprintf("%s/alerts/active/area/%s", NwsApiBase, input.State)
 
-	bodyBytes, err := request.MakeNewRequest(url)
+	bodyBytes, err := MakeNewRequest(url)
 	if err != nil || bodyBytes == nil {
 		e := fmt.Errorf("Something went wrong with making new request: %v", err)
 		return nil, Output{}, e
@@ -52,7 +51,7 @@ func GetAlerts(ctx context.Context, req *mcp.CallToolRequest, input Input) (*mcp
 	}, nil
 }
 
-func formatAlert(ap *Properties) string {
+func formatAlert(ap *WeatherAlertResponseProperties) string {
 	return fmt.Sprintf(`
 		Event: %s
 		Area: %s
