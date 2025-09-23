@@ -33,13 +33,12 @@ It covers tools to fetch weather forecasts and alerts for specific locations usi
 
 ### Running the Server
 
-To start the MCP server:
-
 ```bash
 go run main.go
 ```
 
-This will register the `get_forecast` and `get_alerts` tools and start the server.
+This registers the `get_forecast` and `get_alerts` tools and starts the server.  
+In most cases, you would integrate with a client such as Claude, which handles starting the server for you (see [Configuration](#configuration))
 
 ### Example Tool: Get Weather Forecast
 
