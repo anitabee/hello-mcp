@@ -87,11 +87,7 @@ The MCP server configuration is defined in `claude_desktop_config.json`. For exa
 {
   "mcpServers": {
     "weather": {
-      "command": "bash",
-      "args": [
-        "-c",
-        "cd /Users/<user>/hello-mcp/server/weather && /opt/homebrew/bin/go run main.go"
-      ]
+      "command": "/Users/<user-workspace>/hello-mcp/server/weather/weather-server"
     }
   }
 }
