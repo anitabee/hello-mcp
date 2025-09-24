@@ -17,7 +17,7 @@ func MakeNewRequest(url string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Set("User-Agent", NWSAPIBase)
+	req.Header.Set("User-Agent", "weather-app/1.0")
 	req.Header.Set("Accept", "application/geo+json")
 
 	resp, err := client.Do(req)
