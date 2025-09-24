@@ -8,7 +8,7 @@ import (
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-func RegisterMcpTools() {
+func registerMcpTools() {
 	server := mcp.NewServer(&mcp.Implementation{Name: "weather", Version: "v0.0.1"}, nil)
 	mcp.AddTool(server, &mcp.Tool{
 		Name:        "get_alerts",
@@ -26,5 +26,5 @@ func RegisterMcpTools() {
 }
 
 func main() {
-	RegisterMcpTools()
+	registerMcpTools()
 }

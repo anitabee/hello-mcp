@@ -29,12 +29,19 @@ It covers tools to fetch weather forecasts and alerts for specific locations usi
    go mod tidy
    ```
 
+3. Build the server:
+   ```bash
+   go build -o weather-server
+   ```
+
+   This will create an executable named `weather-server` in the current directory.
+
 ## Usage
 
 ### Running the Server
 
 ```bash
-go run main.go
+./weather-server
 ```
 
 This registers the `get_forecast` and `get_alerts` tools and starts the server.  
