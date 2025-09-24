@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-const NwsApiBase = "https://api.weather.gov"
+const NWSAPIBase = "https://api.weather.gov"
 
 func MakeNewRequest(url string) ([]byte, error) {
 	client := &http.Client{
@@ -17,7 +17,7 @@ func MakeNewRequest(url string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Set("User-Agent", NwsApiBase)
+	req.Header.Set("User-Agent", NWSAPIBase)
 	req.Header.Set("Accept", "application/geo+json")
 
 	resp, err := client.Do(req)

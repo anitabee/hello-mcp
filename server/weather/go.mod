@@ -1,6 +1,6 @@
 module github.com/anitabee/hello-mcp/server/weather
 
-go 1.23.4
+go 1.25.1
 
 require github.com/modelcontextprotocol/go-sdk v0.6.0
 

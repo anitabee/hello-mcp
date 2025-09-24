@@ -1,6 +1,6 @@
-# Hello MCP Weather Service
+# Hello MCP weather server
 
-Implementation of the [Build a Server tutorial](https://modelcontextprotocol.io/docs/develop/build-server) in Go.  
+Implementation of the [Build an MCP server tutorial](https://modelcontextprotocol.io/docs/develop/build-server) in Go.  
 
 It covers tools to fetch weather forecasts and alerts for specific locations using the [Weather Service API](https://www.weather.gov/documentation/services-web-api). It is designed to integrate with the Model Context Protocol (MCP) framework and is intended purely for my learning purposes.
 
@@ -13,7 +13,7 @@ It covers tools to fetch weather forecasts and alerts for specific locations usi
 
 ## Prerequisites
 
-- Go 1.23.4 or later
+- Go 1.25.1 or later
 - MCP Go SDK (`github.com/modelcontextprotocol/go-sdk`)
 
 ## Installation
