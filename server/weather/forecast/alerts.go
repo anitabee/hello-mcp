@@ -22,19 +22,19 @@ func GetAlerts(ctx context.Context, req *mcp.CallToolRequest, input Input) (*mcp
 
 	bodyBytes, err := MakeNewRequest(url)
 	if err != nil || bodyBytes == nil {
-		e := fmt.Errorf("Something went wrong with making new request: %v", err)
+		e := fmt.Errorf("something went wrong with making new request: %v", err)
 		return nil, Output{}, e
 	}
 
 	var data WeatherAlertResponse
 	err = json.Unmarshal([]byte(bodyBytes), &data)
 	if err != nil {
-		e := fmt.Errorf("Error unmarshaling JSON: %v", err)
+		e := fmt.Errorf("error unmarshaling JSON: %v", err)
 		return nil, Output{}, e
 	}
 
-	if data.Features == nil || len(data.Features) == 0 {
-		e := fmt.Errorf("No alerts features found: %v", err)
+	if len(data.Features) == 0 {
+		e := fmt.Errorf("no alerts features found: %v", err)
 		return nil, Output{}, e
 	}
 

@@ -22,20 +22,17 @@ func getForecastURL(input ForecastInput) (string, error) {
 	url := fmt.Sprintf("%s/points/%s,%s", NWSAPIBase, input.Latitude, input.Longitude)
 	pointsData, err := MakeNewRequest(url)
 	if err != nil || pointsData == nil {
-		e := fmt.Errorf("Something went wrong with making pointsData request: %v", err)
-		return "", e
+		return "", fmt.Errorf("something went wrong with making pointsData request: %v", err)
 	}
 
 	var dataWp WeatherPoint
 	err = json.Unmarshal([]byte(pointsData), &dataWp)
 	if err != nil {
-		e := fmt.Errorf("Error unmarshaling WeatherPoint JSON: %v", err)
-		return "", e
+		return "", fmt.Errorf("error unmarshaling WeatherPoint JSON: %v", err)
 	}
 
 	if dataWp.Properties.Forecast == "" {
-		e := fmt.Errorf("No forecast URL found in points data")
-		return "", e
+		return "", fmt.Errorf("no forecast URL found in points data")
 	}
 	return dataWp.Properties.Forecast, nil
 
@@ -45,24 +42,22 @@ func GetForecast(ctx context.Context, req *mcp.CallToolRequest, input ForecastIn
 
 	ForecastURL, err := getForecastURL(input)
 	if err != nil {
-		e := fmt.Errorf("Error getting forecast URL: %v", err)
-		return nil, ForecastOutput{}, e
+		return nil, ForecastOutput{}, fmt.Errorf("error getting forecast URL: %v", err)
 	}
 
 	forecastData, err := MakeNewRequest(ForecastURL)
 	if err != nil || forecastData == nil {
-		e := fmt.Errorf("Something went wrong with making forecastData request: %v", err)
-		return nil, ForecastOutput{}, e
+		return nil, ForecastOutput{}, fmt.Errorf("something went wrong with making forecastData request: %v", err)
 	}
 
 	var dataWf WeatherForecast
 	err = json.Unmarshal([]byte(forecastData), &dataWf)
 	if err != nil {
-		e := fmt.Errorf("Error unmarshaling forecast JSON: %v", err)
+		e := fmt.Errorf("error unmarshaling forecast JSON: %v", err)
 		return nil, ForecastOutput{}, e
 	}
-	if dataWf.Properties.Periods == nil || len(dataWf.Properties.Periods) == 0 {
-		e := fmt.Errorf("No forecast periods found")
+	if len(dataWf.Properties.Periods) == 0 {
+		e := fmt.Errorf("no forecast periods found")
 		return nil, ForecastOutput{}, e
 	}
 
