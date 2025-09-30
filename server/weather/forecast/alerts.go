@@ -18,6 +18,9 @@ type Output struct {
 }
 
 func GetAlerts(ctx context.Context, req *mcp.CallToolRequest, input Input) (*mcp.CallToolResult, Output, error) {
+
+	// log.Println("hello from GetAlerts where will my messages go?")
+
 	url := fmt.Sprintf("%s/alerts/active/area/%s", NWSAPIBase, input.State)
 
 	bodyBytes, err := MakeNewRequest(url)
