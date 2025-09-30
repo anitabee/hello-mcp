@@ -53,12 +53,10 @@ func GetForecast(ctx context.Context, req *mcp.CallToolRequest, input ForecastIn
 	var dataWf WeatherForecast
 	err = json.Unmarshal([]byte(forecastData), &dataWf)
 	if err != nil {
-		e := fmt.Errorf("error unmarshaling forecast JSON: %v", err)
-		return nil, ForecastOutput{}, e
+		return nil, ForecastOutput{}, fmt.Errorf("error unmarshaling forecast JSON: %v", err)
 	}
 	if len(dataWf.Properties.Periods) == 0 {
-		e := fmt.Errorf("no forecast periods found")
-		return nil, ForecastOutput{}, e
+		return nil, ForecastOutput{}, fmt.Errorf("no forecast periods found")
 	}
 
 	formatForecasts := []string{}
