@@ -1,4 +1,4 @@
-package forecast
+package main
 
 import (
 	"io"
@@ -8,7 +8,7 @@ import (
 
 const NWSAPIBase = "https://api.weather.gov"
 
-func MakeNewRequest(url string) ([]byte, error) {
+func makeNewRequest(url string) ([]byte, error) {
 	client := &http.Client{
 		Timeout: time.Second * 10,
 	}
