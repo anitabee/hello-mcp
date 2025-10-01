@@ -6,7 +6,7 @@ import (
 )
 
 func TestGetForecast_Success(t *testing.T) {
-	input := GetForecastInput{
+	input := ForecastInput{
 		Latitude:  "40.7128",
 		Longitude: "-74.0060",
 	}

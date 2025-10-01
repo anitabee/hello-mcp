@@ -35,16 +35,16 @@ type ForecastPeriod struct {
 	DetailedForecast string `json:"detailedForecast"`
 }
 
-type GetForecastInput struct {
+type ForecastInput struct {
 	Latitude  string `json:"latitude"`
 	Longitude string `json:"longitude"`
 }
 
-type GetForecastOutput struct {
+type ForecastOutput struct {
 	Forecast string `json:"forecast"`
 }
 
-func getForecastURL(input GetForecastInput) (string, error) {
+func getForecastURL(input ForecastInput) (string, error) {
 	url := fmt.Sprintf("%s/points/%s,%s", NWSAPIBase, input.Latitude, input.Longitude)
 	pointsData, err := makeNewRequest(url)
 	if err != nil || pointsData == nil {
@@ -64,25 +64,25 @@ func getForecastURL(input GetForecastInput) (string, error) {
 
 }
 
-func getForecast(ctx context.Context, req *mcp.CallToolRequest, input GetForecastInput) (*mcp.CallToolResult, GetForecastOutput, error) {
+func getForecast(ctx context.Context, req *mcp.CallToolRequest, input ForecastInput) (*mcp.CallToolResult, ForecastOutput, error) {
 
 	ForecastURL, err := getForecastURL(input)
 	if err != nil {
-		return nil, GetForecastOutput{}, fmt.Errorf("error getting forecast URL: %v", err)
+		return nil, ForecastOutput{}, fmt.Errorf("error getting forecast URL: %v", err)
 	}
 
 	forecastData, err := makeNewRequest(ForecastURL)
 	if err != nil || forecastData == nil {
-		return nil, GetForecastOutput{}, fmt.Errorf("something went wrong with making forecastData request: %v", err)
+		return nil, ForecastOutput{}, fmt.Errorf("something went wrong with making forecastData request: %v", err)
 	}
 
 	var dataWf Forecast
 	err = json.Unmarshal([]byte(forecastData), &dataWf)
 	if err != nil {
-		return nil, GetForecastOutput{}, fmt.Errorf("error unmarshaling forecast JSON: %v", err)
+		return nil, ForecastOutput{}, fmt.Errorf("error unmarshaling forecast JSON: %v", err)
 	}
 	if len(dataWf.Properties.Periods) == 0 {
-		return nil, GetForecastOutput{}, fmt.Errorf("no forecast periods found")
+		return nil, ForecastOutput{}, fmt.Errorf("no forecast periods found")
 	}
 
 	formatForecasts := []string{}
@@ -91,7 +91,7 @@ func getForecast(ctx context.Context, req *mcp.CallToolRequest, input GetForecas
 		formatForecasts = append(formatForecasts, formatted)
 	}
 	formatedPeriods := strings.Join(formatForecasts, "\n---\n")
-	return nil, GetForecastOutput{Forecast: formatedPeriods}, nil
+	return nil, ForecastOutput{Forecast: formatedPeriods}, nil
 
 }
 
